@@ -1,0 +1,426 @@
+#Data frame
+df<-data.frame(row1 = 0:2, row2 = 3:5, row3 = 6:8) 
+
+# rename
+names(df)[names(df)=="row2"]<-"two"              
+
+#adding empty column
+df[["col4"]]<-0
+
+# assign NA to all row
+df$"col5"<-NA			
+
+#updating column
+df[["col5"]] <- df[["col1"]] + df[["col2"]]
+
+#removing column
+df[["row2"]]<-NULL.
+df <- df [-c(1, 3)]			#remove 2 columns
+print(df)
+
+#subset
+df<-subset(df, select = - c(row1, row2))
+
+#reordering
+df[,c(2, 1, 3)]
+                  
+ #ggplot2
+install.packages("ggplot2") 
+library("ggplot2")
+
+data <- data.frame(x<-50:1)
+
+#scatter
+ggplot(data, aes(x = 1:nrow(data), y = x)) +geom_point()
+
+#barplot
+ggplot(data, aes(x = 1:nrow(data), y = x)) + geom_bar(stat="identity")
+
+#polar
+ggplot(data, aes(x = 1:nrow(data), y = x)) + geom_bar(width = 1, stat = "identity", color = "blue") + coord_polar("y", start = 0)
+
+#dot 
+ggplot(data, aes(x = 1:nrow(data), y = x)) + geom_dotplot(binaxis='y', stackdir='center')
+
+#external map
+ggplot(data=mpg)+geom_point(mapping=aes(x=displ, y = hwy))+facet_wrap(~class, nrow =2)
+
+ #dataframe
+ install.packages("tidyverse") 
+library(tidyverse) 
+
+#data
+mpg 
+view(mpg) 
+
+ggplot(data=mpg)+geom_point(mapping=aes(x=displ, y = hwy, color = class)) 
+ggplot(data=mpg)+geom_point(mapping=aes(x=displ, y = hwy), color = "blue") 
+ggplot(data=mpg)+geom_point(mapping=aes(x=displ, y = hwy), color = "blue") 
+ggplot(data=mpg)+geom_point(mapping=aes(x=displ, y = hwy))+facet_wrap(~class, nrow =2) 
+ggplot(data=mpg)+geom_smooth(mapping=aes(x=displ, y = hwy))
+
+#pie
+# Create data for the graph. 
+geeks <- c(23, 56, 20, 63) 
+labels <- c("Mumbai", "Pune", "Chennai", "Bangalore") 
+
+piepercent<- round(100 * geeks / sum(geeks), 1) 
+# Plot the chart. 
+
+pie(geeks, labels = piepercent, main = "City pie chart", col = rainbow(length(geeks))) 
+legend("topright", c("Mumbai", "Pune", "Chennai", "Bangalore"),cex = 0.5, fill = rainbow(length(geeks))) 
+  
+library(RColorBrewer) 
+# Create data for the graph. 
+geeks <- c(23, 56, 20, 63) 
+labelss <- c("Mumbai", "Pune", "Chennai", "Bangalore") 
+labels<- brewer.pal(length(geeks), "Set2") 
+pie(geeks, labels = labelss) 
+  
+
+library(RColorBrewer) 
+# Create data for the graph. 
+geeks <- c(23, 56, 20, 63) 
+labelss <- c("Mumbai", "Pune", "Chennai", "Bangalore") 
+labels<- brewer.pal(length(geeks), "Set2") 
+# Get the color palette using brewer.pal
+colors <- brewer.pal(length(geeks), "Set2")
+pie(geeks, labels = labelss,main="City", col = colors, lty = 2,density = 50, angle = 45) 
+legend("topright", c("Mumbai", "Pune", "Chennai", "Bangalore"), cex = 0.5, fill = rainbow(length(geeks)))
+
+#line
+#single chart
+# Create the data for the chart. 
+v <- c(17, 25, 38, 13, 41) 
+
+# Plot the bar chart. 
+plot(v, type = "o", col = "green",xlab = "Month", ylab = "Article y",main = "Article")
+
+
+# Create the data for the chart. 
+v <- c(17, 25, 38, 13, 41) 
+t <- c(22, 19, 36, 19, 23) 
+m <- c(25, 14, 16, 34, 29)
+
+# Plot the bar chart. 
+plot(v, type = "o", col = "red", xlab = "Month", ylab = "Article y ",main = "Article")
+lines(t, type = "o", col = "blue") 
+lines(m, type = "o", col = "green")
+
+#bar
+# Create the data for the chart 
+A <- c(17, 32, 8, 53, 1,16) 
+B <- c("Jan", "feb", "Mar", "Apr", "May", "Jun") 
+
+# Plot the bar chart 
+barplot(A, xlab = "X-axis", ylab = "Y-axis", main ="Bar-Chart") 
+barplot(A, horiz = TRUE, xlab = "X-axis", ylab = "Y-axis", main ="Horizontal Bar Chart" ) 
+barplot(A, names.arg = B, xlab = "Month", ylab = "Article", col = "green",main = "Article Chart", cex.main = 1.5, cex.lab = 1.2, cex.axis = 1.1)
+
+#adding text
+text( 
+  x = barplot(A, names.arg = B, col = "steelblue", ylim = c(0, max(A) * 1.2)), 
+  y = A + 1, labels = A, pos = 3, cex = 1.2, col = "black" 
+) 
+
+#grouped bar chart
+colors = c("green", "orange", "brown")
+months <- c("Mar", "Apr", "May", "Jun", "Jul")
+regions <- c("East", "West", "North")
+Values <- matrix(c(2, 9, 3, 11, 9, 4, 8, 7, 3, 12, 5, 2, 8, 10, 11), 
+                 nrow = 3, ncol = 5, byrow = TRUE)
+barplot(Values, main = "Total Revenue", names.arg = months, 
+        xlab = "Month", ylab = "Revenue", 
+        col = colors, beside = TRUE)
+#remove beside for stacked graph
+legend("topright", regions, cex = 0.7, fill = colors)
+
+#histogram
+# Set the seed for reproducibility
+set.seed(123)
+
+# Create the data frame
+df <- data.frame(
+  gender = factor(rep(c("Average Female income", "Average Male income"), each = 20000)),
+  Average_income = round(c(rnorm(20000, mean = 15500, sd = 500),
+                           rnorm(20000, mean = 17500, sd = 600)))
+)
+
+# Load ggplot2 package if already installed
+library(ggplot2)
+
+# Basic histogram with a border color
+ggplot(df, aes(x = Average_income)) + 
+  geom_histogram(color = "black", fill = "steelblue") + 
+  labs(x = "Average Income", y = "Frequency") + 
+  ggtitle("Histogram of Average Income") +  # Corrected function
+  theme_minimal()
+
+# Histogram with specified bin width
+ggplot(df, aes(x = Average_income)) + 
+  geom_histogram(binwidth = 1)
+
+# Histogram with custom color (white border, red fill)
+p <- ggplot(df, aes(x = Average_income)) + 
+  geom_histogram(color = "white", fill = "red")
+p
+
+#measures
+x <- c(3, 7, 5, 13, 20, 23, 39, 23, 40, 23, 14, 12, 56, 23) 
+print(mean(x)) 
+median(x) 
+y <- table(x) 
+# Print frequency table 
+print(y) 
+# Mode of x 
+m <- names(y)[which(y == max(y))] 
+# Print mode 
+print(m) 
+#variance
+print(var(x))
+#deviation
+print(sd(x))
+
+#boxplot
+input <- mtcars[, c('mpg', 'cyl')] 
+print(head(input))
+data(mtcars)
+
+boxplot(disp ~ gear, data = mtcars, 
+        main = "Displacement by Gear", 
+        xlab = "Gear", 
+        ylab = "Displacement") 
+
+my_colors <- c("#FFA500", "#008000", "#1E90FF", "#FF1493") 
+# Create the box plot with customized aesthetics 
+boxplot(disp ~ gear, data = mtcars, 
+        main = "Displacement by Gear", xlab = "Gear", ylab = "Displacement", 
+        col = my_colors, border = "black", notch = TRUE, notchwidth = 0.5, 
+        medcol = "white", whiskcol = "black", boxwex = 0.5, outpch = 19, 
+        outcol = "black")
+
+legend("topright", legend = unique(mtcars$gear), 
+      fill = my_colors, border = "black", title = "Gear")
+
+# Define the variables for the box plots 
+variables <- c("mpg", "disp", "hp", "wt") 
+# Set up the plotting layout 
+par(mfrow = c(1, length(variables))) 
+# Create the box plots 
+for (var in variables) { 
+  boxplot(get(var) ~ gear, data = mtcars, 
+          main = paste("Box Plot of", var), 
+          xlab = "Gear", 
+          ylab = var, 
+          col = "skyblue", 
+          border = "black", 
+          notch = TRUE, 
+          notchwidth = 0.5, 
+          medcol = "white", 
+          whiskcol = "black", 
+          boxwex = 0.5, 
+          outpch = 19, 
+          outcol = "black") 
+} 
+# Reset the plotting layout 
+par(mfrow = c(1, 1))
+
+#histogram
+# Create data for the graph. 
+v <- c(19, 23, 11, 5, 16, 21, 32, 
+       14, 19, 27, 39) 
+# Create the histogram. 
+hist(v, xlab = "No.of Articles ", 
+     col = "green", border = "black") 
+hist(v, xlab = "No.of Articles", col = "green", border = "black", xlim = c(0, 50), ylim = c(0, 5), breaks = 5) 
+hist(v, xlab = "Weight", ylab ="Frequency", xlim = c(50, 100), col = "darkmagenta", border = "pink", breaks = c(5, 55, 60, 70, 75, 80, 100, 140)) 
+
+# Creating data for the graph. 
+v <- c(19, 23, 11, 5, 16, 21, 32, 14, 19, 27, 39, 120, 40, 70, 90) 
+# Creating the histogram. 
+m<-hist(v, xlab = "Weight", ylab ="Frequency", col = "darkmagenta", border = "pink", breaks = 5) 
+# Setting labels 
+text(m$mids, m$counts, labels = m$counts, adj = c(0.5, -0.5)) 
+
+#t test
+min <- 0 
+max <- 60 
+# calculating punif value 
+punif (15 , min =min , max = max, lower.tail=FALSE) 
+
+# two t test
+x <- rnorm(100) 
+y <- rnorm(100) 
+# Two Sample T-Test 
+t.test(x, y) 
+
+# Directional hypothesis testing 
+t.test(x, mu = 2, alternative = 'greater')
+
+# Example sample data 
+sample_data <- c(12, 14, 15, 17, 19, 20, 22, 25, 28, 30) 
+hypothesized_mean <- 18 
+t_test_result <- t.test(sample_data, mu = hypothesized_mean) 
+#data,mean  
+print(t_test_result) 
+
+#two t test
+group1 <- c(12, 15, 17, 19, 22, 24, 28) 
+group2 <- c(18, 20, 23, 25, 29, 31, 35) 
+test_result <- t.test(group1, group2) 
+print(test_result) 
+
+# Generate syntheƟc data
+set.seed(42) 
+group1 <- rnorm(n = 30, mean = 100, sd = 15) 
+# 30 observaƟons with mean=100, sd=15
+group2 <- rnorm(n = 30, mean = 110, sd = 15) 
+# 30 observaƟons with mean=110, sd=15
+
+# Perform two-sample t-test 
+test_result <- t.test(group1, group2) 
+# Print test result 
+print(test_result)
+
+#confidence interval
+data <- c(10, 12, 14, 15, 18, 22, 24, 25, 28, 30) 
+# Calculate the confidence interval using t.test() 
+t.test(data, conf.level = 0.95)$conf.int 
+
+#z test
+library(BSDA) 
+data = c(88, 92, 94, 94, 96, 97, 97, 97, 99) 
+z.test(data, mu=100, sigma.x=15) 
+
+cityA = c(82, 84, 85, 89 ) 
+cityB = c(90, 91, 91, 91 ) 
+#perform two sample z-test 
+z.test(x=cityA, y=cityB, mu=0, sigma.x=15, sigma.y=15) 
+
+#binomial
+probabilities <- dbinom(x = c(0:10), size = 10, prob = 1 / 6)
+data.frame(x = 0:10, prob = probabilities)
+plot(0:10, probabilities, type = "l")
+
+pbinom(3, size = 13, prob = 1 / 6) 
+plot(0:10, pbinom(0:10, size = 10, prob = 1 / 6), type = "l") 
+
+x <- seq(0, 1, by = 0.1) 
+y <- qbinom(x, size = 13, prob = 1 / 6) 
+plot(x, y, type = 'l') 
+
+rbinom(8, size = 13, prob = 1 / 6) 
+hist(rbinom(8, size = 13, prob = 1 / 6))
+
+#normal
+dnorm(c(0, 1, 2, 3, 4), mean = 2, sd = 3) 
+
+x <- seq(-4, 4, by = 0.2) 
+y <- dnorm(x, mean = 0, sd = 1) 
+plot(x, y, type = "l") 
+
+dnorm(c(0,1,0), mean = c(1, -1, 0), sd= c(2, 0.5, 1)) 
+dnorm(0, mean = c(1, -1, 0), sd= c(2, 0.5, 1)) 
+dnorm(c(-3, 2, 5), mean = 3, sd = 2) 
+
+library(ggplot2) 
+x <- seq(from = -5, to = 5, by = 0.05) 
+norm_dat <- data.frame(x = x, pdf = dnorm(x)) 
+ggplot(norm_dat) + geom_line(aes(x = x, y = pdf)) 
+x <- seq(from = -5, to = 5, by = 0.05) 
+norm_dat_1 <- data.frame(dist = "N(0,1)", x = x, pdf = 
+dnorm(x)) 
+norm_dat_2 <- data.frame(dist = "N(1,4)", x = x, pdf = 
+dnorm(x, mean = 1, sd = 2)) 
+norm_dat_3 <- data.frame(dist = "N(-1, 0.25)", x = x, pdf = 
+dnorm(x, mean = -1, sd = 0.5)) 
+norm_dat <- rbind(norm_dat_1, norm_dat_2, norm_dat_3) 
+ggplot(norm_dat) + geom_line(aes(x = x, y = pdf, color = 
+dist))
+
+# Calculate the CDF for x = 1 
+pnorm(1, mean = 0, sd = 1) 
+# Calculate the CDF for x = -1 
+pnorm(-1, mean = 0, sd = 1) 
+# Calculate the CDF for x = 0 
+pnorm(0, mean = 0, sd = 1) 
+pnorm(0, mean = 1, sd = 2) 
+pnorm(0) # cdf at 0 of standard normal 
+
+
+q <- seq(from = -5, to = 5, by = 0.1) 
+norm_dat <- data.frame(q = q, cdf = pnorm(q)) 
+ggplot(norm_dat) + geom_line(aes(x = q, y = cdf)) 
+
+
+pnorm(qnorm(c(0.5,0.7))) 
+qnorm(0.5, mean = 1, sd = 2) 
+qnorm(0.5) 
+
+p <- seq(from = 0.01, to = 0.99, by = 0.01) 
+norm_dat <- data.frame(p = p, quantile = qnorm(p)) 
+ggplot(norm_dat) + geom_line(aes(x = p, y = quantile))
+
+#correlation
+x = c(1, 2, 3, 4, 5, 6, 7) 
+y = c(1, 3, 6, 2, 7, 4, 5) 
+
+result = cor.test(x, y, method = "pearson") 
+print(result) 
+#covariance
+print(cov(x, y, method = "pearson")) 
+
+
+library(ggplot2) 
+library(corrplot) 
+library(Hmisc) 
+
+#calculation with signifciane
+data("mtcars") 
+cor_test <- rcorr(as.matrix(mtcars[, c("mpg", "wt", "hp", "disp")]), type = "pearson") 
+cor_test$r 
+cor_test$P 
+
+# Scatter plot with a regression line 
+ggplot(mtcars, aes(x = wt, y = mpg)) + 
+  geom_point(color = "blue", size = 2) + 
+  geom_smooth(method = "lm", color = "red", se = FALSE) + 
+  labs(title = "Scatter Plot", 
+       x = "Weight (wt)", y = "Miles Per Gallon (mpg)") + 
+  theme_minimal() 
+
+data(iris) 
+library(dplyr) 
+
+# remove Species column 
+data=select(iris,-Species) 
+# calculate corelation 
+cor(data) 
+# calculate covariance 
+cov(data) 
+
+#least squares
+#create data frame 
+df <- data.frame(hours=c(1, 2, 4, 5, 5, 6, 6, 7, 8, 10, 11, 11, 12, 12, 14), 
+                 score=c(64, 66, 76, 73, 74, 81, 83, 82, 80, 88, 84, 82, 91, 93, 89)) 
+#view first six rows of data frame 
+head(df) 
+#use method of least squares to fit regression line 
+model <- lm(score ~ hours, data=df) 
+#view regression model summary 
+summary(model) 
+
+#create scatter plot of data 
+plot(df$hours, df$score, pch=16, col='steelblue') 
+#add fitted regression line to scatter plot 
+abline(model) 
+
+#residual
+data(mtcars) 
+model <- lm(mpg~disp+hp, data=mtcars) 
+res <- resid(model) 
+
+#produce residual vs fitted plot
+plot(fitted(model), res) 
+#add a horizontal line at 0 
+abline(0,0)
